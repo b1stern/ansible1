@@ -1,6 +1,18 @@
 ---
-- hosts: all 
-  gather_facts: no
+- hosts: localhost
+  connection: local
+  tasks:
+    - ansible.builtin.add_host:
+        name: "{{ fqdn }}"
+        groups: group1
+      changed_when: false
+
+- hosts: group1
+  remote_user: root
+  gather_facts: yes
+  vars:
+    ansible_user: "{{ vm_root_user }}"
+    ansible_ssh_pass: "{{ vm_root_password }}"
   tasks:
     - name: Save message to a file
       copy:
