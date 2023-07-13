@@ -1,0 +1,8 @@
+---
+- hosts: all 
+  gather_facts: no
+  tasks:
+    - name: Save message to a file
+      copy:
+        content: "{{ message }}"
+        dest: "/tmp/test.txt"
