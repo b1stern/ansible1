@@ -2,10 +2,12 @@
 - hosts: localhost
   connection: local
   tasks:
+    - name: Print all vars
+      debug:
+        var: hostvars[inventory_hostname]
     - ansible.builtin.add_host:
         name: "{{ fqdn }}"
         groups: group1
-      changed_when: false
 
 - hosts: group1
   remote_user: root
