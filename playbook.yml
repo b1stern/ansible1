@@ -6,17 +6,17 @@
       debug:
         var: hostvars[inventory_hostname]
     - ansible.builtin.add_host:
-        name: "{{ dialog_param_fqdn }}"
+        name: "{{ fqdn }}"
         groups: group1
 
 - hosts: group1
   remote_user: root
   gather_facts: yes
   vars:
-    ansible_user: "{{ dialog_param_vm_root_user }}"
-    ansible_ssh_pass: "{{ dialog_param_vm_root_password }}"
+    ansible_user: "{{ vm_root_user }}"
+    ansible_ssh_pass: "{{ vm_root_password }}"
   tasks:
     - name: Save message to a file
       copy:
-        content: "{{ dialog_param_message }}"
+        content: "{{ message }}"
         dest: "/tmp/test.txt"
