@@ -46,7 +46,7 @@
     #   copy:
     #     content: "{{ all_vars | to_nice_yaml }}"
     #     dest: "/tmp/printed_vars_step_3.yml"
-    # - name: Save test message to a file
-    #   copy:
-    #     content: "{{ message }}"
-    #     dest: "/tmp/test.txt"
+    - name: Save test message to a file
+      copy:
+        content: "{{ message }}"
+        dest: "/tmp/test.txt"
