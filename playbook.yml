@@ -8,7 +8,7 @@
     - name: Write all vars to file
       copy:
         content: "{{ all_vars | to_nice_yaml }}"
-        dest: "/tmp/printed_vars.yml"
+        dest: "/tmp/printed_vars_step_1.yml"
     - ansible.builtin.add_host:
         name: "{{ target_host_fqdn }}"
         groups: group1
@@ -18,16 +18,24 @@
     - name: Print all vars to file again after host was added
       copy:
         content: "{{ all_vars | to_nice_yaml }}"
-        dest: "/tmp/printed_vars.yml"
+        dest: "/tmp/printed_vars_step_2.yml"
 
 - hosts: group1
+  connection: ssh
   gather_facts: no
   vars:
     ansible_user: "{{ vm_root_user }}"
     ansible_ssh_pass: "{{ vm_root_password }}"
     ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
-    - name: Save message to a file
+    - name: Capture all vars again on remote host
+      set_fact:
+        all_vars: "{{ hostvars[inventory_hostname] }}"
+    - name: Print vars to file on remote host
+      copy:
+        content: "{{ all_vars | to_nice_yaml }}"
+        dest: "/tmp/printed_vars_step_3.yml"
+    - name: Save test message to a file
       copy:
         content: "{{ message }}"
         dest: "/tmp/test.txt"
