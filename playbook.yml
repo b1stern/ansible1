@@ -26,11 +26,11 @@
 
 - hosts: all
   # connection: ssh
-  gather_facts: yes
-  vars:
-    ansible_user: "{{ vm_root_user }}"
-    ansible_ssh_pass: "{{ vm_root_password }}"
-    ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+  gather_facts: no
+  # vars:
+  #   ansible_user: "{{ vm_root_user }}"
+  #   ansible_ssh_pass: "{{ vm_root_password }}"
+  #   ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
     - name: Write hostname to file
       copy:
