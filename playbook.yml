@@ -13,7 +13,7 @@
         content: "{{ all_vars | to_nice_yaml }}"
         dest: "/tmp/printed_vars.yml"
     - ansible.builtin.add_host:
-        name: "{{ fqdn }}"
+        name: "{{ target_host_fqdn }}"
         groups: group1
 
 - hosts: group1
