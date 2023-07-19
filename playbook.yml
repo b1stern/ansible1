@@ -2,6 +2,10 @@
 - hosts: localhost
   connection: local
   tasks:
+    - name: Print the name of the host the playbook should run against
+      copy:
+        content: "{{ target_host_fqdn }}"
+        dest: "/tmp/hostname.txt"
     - name: Capture all vars
       set_fact:
         all_vars: "{{ hostvars[inventory_hostname] }}"
@@ -26,6 +30,7 @@
   vars:
     ansible_user: "{{ vm_root_user }}"
     ansible_ssh_pass: "{{ vm_root_password }}"
+    ansible_become_pass: "{{ vm_root_password }}"
     ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
     - name: Capture all vars again on remote host
