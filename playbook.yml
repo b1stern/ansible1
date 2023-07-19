@@ -2,9 +2,16 @@
 - hosts: localhost
   connection: local
   tasks:
+    - name: Capture all vars
+      set_fact:
+        all_vars: "{{ hostvars[inventory_hostname] }}"
     - name: Print all vars
       debug:
-        var: hostvars[inventory_hostname]
+        var: all_vars
+    - name: Write all vars to file
+      copy:
+        content: "{{ all_vars | to_nice_yaml }}"
+        dest: "/tmp/printed_vars.yml"
     - ansible.builtin.add_host:
         name: "{{ fqdn }}"
         groups: group1
