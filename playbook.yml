@@ -2,15 +2,11 @@
 - hosts: all
   connection: ssh
   gather_facts: yes
-  vars:
-    ansible_user: "{{ vm_root_user }}"
-    ansible_ssh_pass: "{{ vm_root_password }}"
-    ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+  # vars:
+  #   ansible_user: "{{ vm_root_user }}"
+  #   ansible_ssh_pass: "{{ vm_root_password }}"
+  #   ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
-    - name: Write hostname to file
-      copy:
-        content: "{{ ansible_hostname }}"
-        dest: "/tmp/current_hostname_play_2.txt"
     - name: Capture all vars again on remote host
       set_fact:
         all_vars: "{{ hostvars[inventory_hostname] }}"
@@ -18,6 +14,10 @@
       copy:
         content: "{{ all_vars | to_nice_yaml }}"
         dest: "/tmp/printed_vars_step_3.yml"
+    - name: Write hostname to file
+      copy:
+        content: "{{ ansible_hostname }}"
+        dest: "/tmp/current_hostname_play_2.txt"
     - name: Save test message to a file
       copy:
         content: "{{ message }}"
