@@ -2,12 +2,12 @@
 - hosts: all
   connection: ssh
   gather_facts: no
-  vars:
-    ansible_user: "{{ ansible_user }}"
-    ansible_ssh_pass: "{{ ansible_ssh_pass }}"
-    ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+  # vars:
+  #   ansible_user: "{{ ansible_user }}"
+  #   ansible_ssh_pass: "{{ ansible_ssh_pass }}"
+  #   ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
-    - name: Capture all vars again on remote host
+    - name: Capture all vars on remote host
       set_fact:
         all_vars: "{{ hostvars[inventory_hostname] }}"
     - name: Print my_variable
