@@ -1,8 +1,7 @@
 ---
 - hosts: all
-  connection: ssh
+  # connection: ssh
   gather_facts: no
-  become: true
   # vars:
   #   ansible_user: "{{ vm_root_user }}"
   #   ansible_ssh_pass: "{{ vm_root_password }}"
