@@ -2,17 +2,10 @@
 - hosts: all
   connection: ssh
   gather_facts: no
-  # vars:
-  #   ansible_user: "{{ ansible_user }}"
-  #   ansible_ssh_pass: "{{ ansible_ssh_pass }}"
-  #   ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
     - name: Capture all vars on remote host
       set_fact:
         all_vars: "{{ hostvars[inventory_hostname] }}"
-    - name: Print my_variable
-      debug:
-        var: all_vars
     - name: Print hostname
       command: hostname
     # - name: Print vars to file on remote host
@@ -23,7 +16,7 @@
     #   copy:
     #     content: "{{ ansible_hostname }}"
     #     dest: "/tmp/current_hostname_play.txt"
-    # - name: Save test message to a file
-    #   copy:
-    #     content: "{{ message }}"
-    #     dest: "/tmp/test.txt"
+    - name: Save test message to a file
+      copy:
+        content: "{{ message }}"
+        dest: "/tmp/test.txt"
