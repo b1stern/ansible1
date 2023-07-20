@@ -2,16 +2,19 @@
 - hosts: all
   connection: ssh
   gather_facts: no
-  # vars:
-  #   ansible_user: "{{ vm_root_user }}"
-  #   ansible_ssh_pass: "{{ vm_root_password }}"
-  #   ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+  vars:
+    ansible_user: "{{ ansible_user }}"
+    ansible_ssh_pass: "{{ ansible_ssh_pass }}"
+    ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
   tasks:
+    - name: Capture all vars again on remote host
+      set_fact:
+        all_vars: "{{ hostvars[inventory_hostname] }}"
+    - name: Print my_variable
+      debug:
+        var: all_vars
     - name: Print hostname
       command: hostname
-    # - name: Capture all vars again on remote host
-    #   set_fact:
-    #     all_vars: "{{ hostvars[inventory_hostname] }}"
     # - name: Print vars to file on remote host
     #   copy:
     #     content: "{{ all_vars | to_nice_yaml }}"
