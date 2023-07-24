@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  connection: ssh
   become: yes
   roles:
     - { role: geerlingguy.mysql }
